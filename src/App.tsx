@@ -1,7 +1,6 @@
 import './App.css';
 import Timer from './components/Timer';
 
-// Список городов. TimeZone берется из стандарта IANA
 const LOCATIONS = [
   { city: 'Tel Aviv', timeZone: 'Asia/Jerusalem' },
   { city: 'Tokyo', timeZone: 'Asia/Tokyo' },
