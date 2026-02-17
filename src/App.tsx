@@ -1,33 +1,18 @@
+import { Timer } from './components/Timer';
 import './App.css';
-import Timer from './components/Timer';
 
-// Список городов. TimeZone берется из стандарта IANA
-const LOCATIONS = [
-  { city: 'Tel Aviv', timeZone: 'Asia/Jerusalem' },
-  { city: 'Tokyo', timeZone: 'Asia/Tokyo' },
-  { city: 'New York', timeZone: 'America/New_York' },
-  { city: 'Paris', timeZone: 'Europe/Paris' },
+// Список городов и их временных зон для отображения в приложении
+const cities = [
+  { n: 'Tel Aviv', z: 'Asia/Jerusalem' },
+  { n: 'Tokyo', z: 'Asia/Tokyo' },
+  { n: 'New York', z: 'America/New_York' },
+  { n: 'Paris', z: 'Europe/Paris' }
 ];
 
-function App() {
+export default function App() {
   return (
-    <div className="app-container">
-      <header className="header">
-        <h1>World Clock</h1>
-        <p>Stay synced with the world</p>
-      </header>
-      
-      <main className="timer-grid">
-        {LOCATIONS.map((loc) => (
-          <Timer 
-            key={loc.timeZone} 
-            city={loc.city} 
-            timeZone={loc.timeZone} 
-          />
-        ))}
-      </main>
+    <div className="timer-grid">
+      {cities.map(c => <Timer key={c.z} city={c.n} zone={c.z} />)}
     </div>
   );
 }
-
-export default App;
