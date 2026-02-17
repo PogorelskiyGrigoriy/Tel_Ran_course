@@ -7,15 +7,20 @@ interface TimerProps {
 }
 
 const Timer = ({ city, timeZone }: TimerProps) => {
+  // Локальное состояние для даты, чтобы React знал, когда перерисовать компонент
   const [date, setDate] = useState<Date>(new Date());
 
   useEffect(() => {
+    // Подписываемся на единственный интервал через наш сервис
     const unsubscribe = timeService.subscribe((now) => {
       setDate(now);
     });
+
+    // Очистка при размонтировании (важно для useEffect!)
     return () => unsubscribe();
   }, []);
 
+  // Форматирование времени (24-часовой формат)
   const timeString = date.toLocaleTimeString('en-US', {
     timeZone,
     hour: '2-digit',
@@ -24,6 +29,7 @@ const Timer = ({ city, timeZone }: TimerProps) => {
     hour12: false,
   });
 
+  // Форматирование даты (например: Feb 17, 2026)
   const dateString = date.toLocaleDateString('en-US', {
     timeZone,
     day: 'numeric',
