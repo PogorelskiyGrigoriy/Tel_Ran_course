@@ -46,7 +46,7 @@ return (
     <span className="city-name">{city}</span>
     <div className="date-display">{dateString}</div>
     <div className="time-display">{timeString}</div>
-    <span className="timezone-label">{zone.split('/')[1].replace('_', ' ')}</span>
+    <span className="timezone-label">{city}</span>
   </div>
 );
 };
