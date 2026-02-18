@@ -1,88 +1,103 @@
-/* Базовые настройки страницы */
+/* Базовые настройки — эффект "вырвиглаз" */
 body {
   margin: 0;
   padding: 40px 20px;
-  background-color: #f0f2f5;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #ffde03; /* Кислотно-желтый */
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 20px 20px; /* Точечный фон как в комиксах */
+  font-family: "Comic Sans MS", "Chalkboard SE", cursive; /* Самый "любимый" шрифт разрабов */
   display: flex;
   justify-content: center;
 }
 
-/* Сетка (Grid) — подстраивается под количество карточек */
 .timer-grid {
   display: grid;
-  /* Карточки будут иметь ширину минимум 260px и занимать всё свободное место */
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 24px;
+  gap: 40px;
   width: 100%;
   max-width: 1200px;
 }
 
-/* Стили карточки таймера */
+/* Карточка в стиле Необрутализм */
 .timer-card {
-  background: #ffffff;
-  padding: 32px 24px;
-  border-radius: 20px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background: #fff;
+  padding: 30px;
+  border: 4px solid #000; /* Жирная черная рамка */
+  border-radius: 0px; /* Никаких скруглений, мы суровы */
+  box-shadow: 10px 10px 0px #000; /* Жесткая тень */
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  position: relative;
+  transition: all 0.1s;
+  overflow: hidden;
 }
 
-/* Эффект при наведении */
+/* Эффект "испуга" при наведении */
 .timer-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-  border-color: #007aff;
+  transform: translate(-5px, -5px);
+  box-shadow: 20px 20px 0px #ff0055; /* Розовая гигантская тень */
+  background-color: #e0ffff;
 }
 
-/* Название города */
-.timer-card strong {
-  font-size: 1.2rem;
-  color: #1d1d1f;
-  margin-bottom: 12px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-/* Дата (если вы ее добавили) */
-.date-display {
-  font-size: 0.85rem;
-  color: #86868b;
-  margin-bottom: 8px;
+/* Название города — теперь оно кричит */
+.city-name {
+  font-size: 1.8rem;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  background: #000;
+  color: #fff;
+  padding: 5px 15px;
+  transform: rotate(-3deg); /* Немного наклоним */
+  margin-bottom: 20px;
 }
 
-/* Отображение времени */
+.date-display {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #000;
+  border-bottom: 2px dashed #000;
+  margin-bottom: 10px;
+}
+
+/* Время, которое невозможно пропустить */
 .time-display {
-  font-family: "SF Mono", "JetBrains Mono", "Courier New", monospace;
-  font-size: 2.4rem;
-  font-weight: 700;
-  color: #007aff; /* Синий акцент */
-  margin: 8px 0;
-  font-variant-numeric: tabular-nums; /* Чтобы цифры не прыгали */
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #ff0055;
+  text-shadow: 2px 2px 0px #000;
+  animation: jitter 0.2s infinite alternate; /* Легкая тряска */
 }
 
-/* Подпись временной зоны */
+/* Подпись зоны как ценник в магазине */
 .timezone-label {
-  font-size: 0.75rem;
-  color: #a1a1a6;
-  background: #f5f5f7;
-  padding: 4px 10px;
-  border-radius: 12px;
-  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #000;
+  background: #55ff55;
+  padding: 5px 10px;
+  border: 2px solid #000;
+  margin-top: 15px;
+  font-weight: bold;
 }
 
-/* Адаптивность для мобильных устройств */
-@media (max-width: 480px) {
-  .timer-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .time-display {
-    font-size: 2rem;
-  }
+/* Анимация безумия */
+@keyframes jitter {
+  0% { transform: scale(1) rotate(0deg); }
+  100% { transform: scale(1.05) rotate(1deg); }
+}
+
+/* Добавим секретное эмодзи через псевдоэлемент для каждой второй карточки */
+.timer-card:nth-child(even)::after {
+  content: "📍";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 2rem;
+}
+
+.timer-card:nth-child(odd)::after {
+  content: "🚀";
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  font-size: 2rem;
 }
