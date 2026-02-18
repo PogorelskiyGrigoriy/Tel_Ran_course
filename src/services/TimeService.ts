@@ -1,24 +1,21 @@
-// Сервис для получения текущего времени и уведомления всех подписчиков каждую секунду
-class TimeService {
-  private static instance = new TimeService();
-  private listeners: ((d: Date) => void)[] = [];
+// Сервис для управления временем и подписчиками на его изменения
+type TimeListener = (date: Date) => void;
 
-  // Конструктор запускает таймер, который каждую секунду вызывает всех подписчиков с текущим временем
-  private constructor() {
-    setInterval(() => {
-      const now = new Date();
-      this.listeners.forEach(fn => fn(now));
-    }, 1000);
+let listeners: TimeListener[] = [];
+
+// Единый интервал для всего приложения
+setInterval(() => {
+  const now = new Date();
+  // Создаем копию массива перед итерацией для безопасности
+  [...listeners].forEach(render => render(now));
+}, 1000);
+
+// Экспортируем объект с методом подписки, который возвращает функцию отписки
+export const timeService = {
+  subscribe(fn: TimeListener) {
+    listeners.push(fn);
+    return () => {
+      listeners = listeners.filter(l => l !== fn);
+    };
   }
-
-  public static getInstance() { return this.instance; }
-
-  // Добавить слушателя в список
-  subscribe(fn: (d: Date) => void) {
-    this.listeners.push(fn);
-    // Возвращаем функцию для удаления из списка (отписки)
-    return () => { this.listeners = this.listeners.filter(l => l !== fn); };
-  }
-}
-
-export const timeService = TimeService.getInstance();
+};
