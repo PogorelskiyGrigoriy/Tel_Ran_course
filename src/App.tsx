@@ -13,7 +13,7 @@ const cities = [
 export default function App() {
   return (
       <div className="timer-grid">
-        {cities.map(c => <Timer key={c.z} city={c.n} zone={c.z} />)}
+        {cities.map(c => <Timer key={`${c.n}-${c.z}`} city={c.n} zone={c.z} />)}
       </div>
   );
 }
